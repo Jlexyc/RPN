@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Car" representedClassName=".Car" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tradeMark" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="volume" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="car" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="UserModel" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="dateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isMale" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="car" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Car" inverseName="user" inverseEntity="Car" syncable="YES"/>
+        <fetchedProperty name="allUsers" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="User"/>
+        </fetchedProperty>
+    </entity>
+    <elements>
+        <element name="User" positionX="-1125" positionY="-1035" width="128" height="161"/>
+        <element name="Car" positionX="-875" positionY="-1014" width="128" height="103"/>
+    </elements>
+</model>
