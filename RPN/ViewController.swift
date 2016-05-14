@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Alamofire
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var firstNameTextField: UITextField?
@@ -33,43 +32,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tableView?.reloadData()
         }
         
-        Alamofire.request(.GET, "https://httpbin.org/get", parameters: ["foo": "bar"])
-            .responseJSON { response in
-                print(response.request)  // original URL request
-                print(response.response) // URL response
-                print(response.data)     // server data
-                print(response.result)   // result of response serialization
-                
-                if let JSON = response.result.value {
-                    print("JSON: \(JSON)")
-                }
-        }
-        
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func saveTapped() {
-        if let managedObjectContextWrapped = self.managedObjectContext {
-            let userModel = UserModel.createUser(managedObjectContextWrapped)
-            userModel.firstName = self.firstNameTextField!.text
-            userModel.lastName = self.lastNameTextField!.text
-            
-            let newCar = Car.createCar(managedObjectContextWrapped)
-            newCar.color = "Red"
-            newCar.volume = "Big"
-            userModel.car = NSSet(object: newCar)
-            
-            do {
-                try managedObjectContextWrapped.save()
-                
-            } catch {
-                print("Big problems")
-            }
-        }
+        Networking().updateInformation(self.managedObjectContext!)
+//        if let managedObjectContextWrapped = self.managedObjectContext {
+//            let userModel = UserModel.createUser(managedObjectContextWrapped)
+//            userModel.firstName = self.firstNameTextField!.text
+//            userModel.lastName = self.lastNameTextField!.text
+//            
+//            let newCar = Car.createCar(managedObjectContextWrapped)
+//            newCar.color = "Red"
+//            newCar.volume = "Big"
+//            userModel.car = NSSet(object: newCar)
+//            
+//            do {
+//                try managedObjectContextWrapped.save()
+//                
+//            } catch {
+//                print("Big problems")
+//            }
+//        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
